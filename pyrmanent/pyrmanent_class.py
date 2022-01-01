@@ -93,4 +93,6 @@ class Pyrmanent:
         self._path = self._folder + self._filename
 
     def _get_filename(self):
+        if not self._name:
+            return self.__class__.__name__ + ".pickle"
         return self.__class__.__name__ + "_" + self._name + ".pickle"
