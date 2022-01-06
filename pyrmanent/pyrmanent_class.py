@@ -73,8 +73,8 @@ class Pyrmanent:
         try:
             os.remove(self._path)
         except OSError as exc:
-            exc_msg = "File %s not deleted: %s"
-            raise PyrmanentError(exc_msg, self._filename, exc) from exc
+            exc_msg = "File %s not deleted: %s" % (self._filename, exc)
+            raise PyrmanentError(exc_msg) from exc
 
     def _create_folder(self, folder):
         self._prepare_path(folder)
@@ -83,8 +83,8 @@ class Pyrmanent:
             try:
                 os.makedirs(self._folder)
             except OSError as exc:
-                exc_msg = "Folder creation error for %s: %s"
-                raise PyrmanentError(exc_msg, self._filename, exc) from exc
+                exc_msg = "Folder creation error for %s: %s" % (self._filename, exc)
+                raise PyrmanentError(exc_msg) from exc
 
     def _prepare_path(self, folder):
         if folder:
