@@ -34,7 +34,6 @@ class Pyrmanent:
         self._create_folder(folder)
 
         if not self.load():
-            self.init()
             self.save()
 
     def load(self):
@@ -68,10 +67,6 @@ class Pyrmanent:
         """Saves the current instance data to a file only if autosave is true."""
         if self._autosave:
             self.save()
-
-    def init(self):
-        """This method is called before saving the instance data for the first time.
-        You can initialize attribute values by replacing this with your own method."""
 
     def _create_folder(self, folder):
         self._prepare_path(folder)
