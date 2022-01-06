@@ -5,8 +5,9 @@ from pyrmanent import Pyrmanent
 
 
 class Example(Pyrmanent):
-    def init(self):
+    def __init__(self, name=""):
         self.menu = "pizza"
+        super().__init__(name=name)
 
 
 class TestPersistency(unittest.TestCase):
