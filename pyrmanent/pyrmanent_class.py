@@ -1,3 +1,4 @@
+import inspect
 import os
 from pickle import UnpicklingError
 
@@ -67,6 +68,13 @@ class Pyrmanent:
         """Saves the current instance data to a file only if autosave is true."""
         if self._autosave:
             self.save()
+
+    def reset(self):
+        try:
+            os.remove(self._path)
+        except OSError as exc:
+            exc_msg = "File %s not deleted: %s"
+            raise PyrmanentError(exc_msg, self._filename, exc) from exc
 
     def _create_folder(self, folder):
         self._prepare_path(folder)
