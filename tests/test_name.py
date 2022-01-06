@@ -18,3 +18,17 @@ class TestName(unittest.TestCase):
         Example()
         self.assertTrue(os.path.isfile("Example.pickle"))
         os.remove("Example.pickle")
+
+    def setUp(self):
+        self._clean()
+
+    def tearDown(self):
+        self._clean()
+
+    @staticmethod
+    def _clean():
+        for file in ["Example", "Example_foo"]:
+            try:
+                os.remove(file + ".pickle")
+            except OSError:
+                pass

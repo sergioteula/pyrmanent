@@ -100,29 +100,27 @@ my_class_instance.set_title("Test")
 my_class_instance.save()
 ```
 
-### Instance initialization
+### Override the \_\_init\_\_ method
 
-#### Override the \_\_init\_\_ method
-
-The `__init__` method can be overrided to provide default configurations, like for example
-the saving path in below example.
+The `__init__` method can be overrided to add attributes and provide default configurations,
+like for example the saving path in below example. Remember that the `super()` call should
+be always done at the end.
 
 ```python
 class MyClass(Pyrmanent):
     def __init__(self, name, autosave=True):
+        self.first_value = 1
+        self.second_value = 2
         super().__init__(name=name, folder="data", autosave=autosave)
 ```
 
-#### The init method
+### Reset instance data
 
-On the other hand, you can define the `init` method (without the underscores) to initialize
-attribute values. This method is called before saving the instance data for the first time.
+To reset instance data, call the `reset` method and then initialize the instance again.
 
 ```python
-class MyClass(Pyrmanent):
-    def init(self):
-        self.first_value = 1
-        self.second_value = 2
+my_class_instance.reset()
+my_class_instance = MyClass()
 ```
 
 ### Use dill instead of pickle

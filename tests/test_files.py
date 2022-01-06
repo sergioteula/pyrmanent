@@ -13,14 +13,28 @@ class TestFiles(unittest.TestCase):
     def test_pickle_file(self):
         Example()
         self.assertTrue(os.path.isfile("Example.pickle"))
-        os.remove("Example.pickle")
 
     def test_custom_folder(self):
         Example(folder="saves")
         self.assertTrue(os.path.isfile("saves/Example.pickle"))
-        shutil.rmtree("saves")
 
     def test_custom_nested_folder(self):
         Example(folder="saves/data")
         self.assertTrue(os.path.isfile("saves/data/Example.pickle"))
-        shutil.rmtree("saves")
+
+    def setUp(self):
+        self._clean()
+
+    def tearDown(self):
+        self._clean()
+
+    @staticmethod
+    def _clean():
+        try:
+            os.remove("Example.pickle")
+        except OSError:
+            pass
+        try:
+            shutil.rmtree("saves")
+        except OSError:
+            pass

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyrmanent",
-    version="1.0.1",
+    version="1.1.0",
     author="Sergio Abad",
     author_email="sergio.abad@bytelix.com",
     description="Make all your classes permanent in a flash",

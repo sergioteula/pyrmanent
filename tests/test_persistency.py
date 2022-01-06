@@ -5,8 +5,9 @@ from pyrmanent import Pyrmanent
 
 
 class Example(Pyrmanent):
-    def init(self):
+    def __init__(self, name=""):
         self.menu = "pizza"
+        super().__init__(name=name)
 
 
 class TestPersistency(unittest.TestCase):
@@ -14,7 +15,6 @@ class TestPersistency(unittest.TestCase):
         example = Example()
         self.assertTrue(hasattr(example, "menu"))
         self.assertEqual(example.menu, "pizza")
-        os.remove("Example.pickle")
 
     def test_not_saved_values(self):
         example = Example()
@@ -22,7 +22,6 @@ class TestPersistency(unittest.TestCase):
         example = Example()
         self.assertTrue(hasattr(example, "menu"))
         self.assertEqual(example.menu, "pizza")
-        os.remove("Example.pickle")
 
     def test_saved_values(self):
         example = Example()
@@ -31,7 +30,6 @@ class TestPersistency(unittest.TestCase):
         example = Example()
         self.assertTrue(hasattr(example, "menu"))
         self.assertEqual(example.menu, "rice")
-        os.remove("Example.pickle")
 
     def test_values_for_different_names(self):
         first = Example(name="first")
@@ -46,5 +44,17 @@ class TestPersistency(unittest.TestCase):
         self.assertTrue(hasattr(second, "menu"))
         self.assertEqual(first.menu, "rice")
         self.assertEqual(second.menu, "soup")
-        os.remove("Example_first.pickle")
-        os.remove("Example_second.pickle")
+
+    def setUp(self):
+        self._clean()
+
+    def tearDown(self):
+        self._clean()
+
+    @staticmethod
+    def _clean():
+        for file in ["Example", "Example_first", "Example_second"]:
+            try:
+                os.remove(file + ".pickle")
+            except OSError:
+                pass
